@@ -21,4 +21,14 @@
    ```
    riemann-client send -s "net.if.in.bits" -m 6969
    ```
+### Reload Riemann config
 
+1. Use network nrepl to connect Riemann
+   ```
+   lein repl :connect 127.0.0.1:5557
+   ```
+
+2. After connect successfully, give reload command
+   ```
+   (riemann.bin/reload!)
+   ```

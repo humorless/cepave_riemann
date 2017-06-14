@@ -1,5 +1,8 @@
 # Use Riemann to replace Open-Falcon's Judge 
 
+### Documentation
+* [Chinese](https://humorless.gitbooks.io/riemann/)
+
 ### Prequisted
 *  Riemann python client
    ``` 

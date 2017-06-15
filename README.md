@@ -38,11 +38,11 @@
 
 ### Use events to inject hostgroup info Riemann
 
-1. HOSTGROUP_INFO event describes hostgroup/host as :service/:tags field
+1. HOSTGROUP_INFO event describes hostgroup/host as :tags/:host field
 ```
-=> { :service "hostgroup2",
-     :tags ["owl-docker", "hosta"]
-     :description "HOSTGROUP_INFO" }
+=> { :service "HOSTGROUP_INFO",
+     :tags ["hostgroup1", "hostgroup2"]
+     :host "owl-docker" }
 ```
 
 2. Use python client to send events
@@ -57,9 +57,9 @@
    riemann-client query 'true'
    ```
 
-2. Query only the index related to HOSTGROUP_INFO and certain host named as 'owl-docker'
+2. Query only the index which :service is HOSTGROUP_INFO and :tags array contains 'owl-group'
    ```
-   riemann-client query 'tagged "owl-docker" and description = "HOSTGROUP_INFO"'
+   riemann-client query 'tagged "owl-group" and service = "HOSTGROUP_INFO"'
 
    ```
    or simply

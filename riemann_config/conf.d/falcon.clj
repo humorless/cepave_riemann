@@ -109,3 +109,9 @@
        :tags [\"hostgroup1\", \"hostgroup2\"]}"
   [e]
   (:tags (riemann.index/lookup (:index @core) (:host e) "HOSTGROUP_INFO")))
+
+(defn grouped-any?
+  "Predicate function to check if any of a collection of group-coll
+  are present in the group of event."
+  [group-coll event]
+  (not= nil (some (set group-coll) (:group event))))

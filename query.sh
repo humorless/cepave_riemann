@@ -1,5 +1,5 @@
 #/bin/bash
 
-# find out all the index that have owl-docker as tag
-riemann-client query 'tagged "owl-docker" and description = "HOSTGROUP_INFO"'
+echo QueryString: tagged "hostgroup_OWL" and service = "HOSTGROUP_INFO"
+riemann-client query 'tagged "hostgroup_OWL" and service = "HOSTGROUP_INFO"'
 

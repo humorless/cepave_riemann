@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Debug:
-# riemann-client -T none send -s "hostgroup1" -m 0 -d "service:hostgroup, tags:host" -t aa -t bb -l 86400 -a 'h1=1' -a 'h2=1' -a h3=0
-#
 
-riemann-client send -s "hostgroup1" -m 0 -d "HOSTGROUP_INFO" -t owl-docker -t hostb -l 86400 -a h2=1 -a h3=0
-riemann-client send -s "hostgroup2" -m 0 -d "HOSTGROUP_INFO" -t owl-docker -t hosta -l 86400 -a h2=1 -a h3=0
-riemann-client send -s "hostgroup3" -m 0 -d "HOSTGROUP_INFO" -t hostd -t hostc -l 86400 -a h2=1 -a h3=0
+riemann-client send -s "HOSTGROUP_INFO" -m 0 -d "(:host/:tags) => (host/hostgrouop) relationship" -t hostgroup_1 -t hostgroup_AA -l 86400 -h AA
+riemann-client send -s "HOSTGROUP_INFO" -m 0 -d "(:host/:tags) => (host/hostgrouop) relationship" -t hostgroup_2 -t hostgroup_BB -l 86400 -h BB
+riemann-client send -s "HOSTGROUP_INFO" -m 0 -d "(:host/:tags) => (host/hostgrouop) relationship" -t hostgroup_OWL -t hostgroup_CC -l 86400
 

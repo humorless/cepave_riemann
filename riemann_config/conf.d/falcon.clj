@@ -73,8 +73,8 @@
   (let [events (non-nil-metric-events evs)]
     (map
       (fn [[ev' ev]] (assoc ev' :metric (/ (- (:metric ev') (:metric ev)) (:metric ev')) :prev-metric (:metric ev')))
-        (filter
-          (fn [[ev' ev]] (not= (:metric ev') 0))
+        (remove
+          (fn [[ev' ev]] (zero? (:metric ev')))
             (map vector (rest events) events)))))
 
 (defn diff
@@ -89,22 +89,23 @@
   (moving-event-window n
     (apply smap (comp (any-fold f) events-pdiff) children)))
 
-(defn query-hostgroup
-  "Use query to find if there are any hostgroups current event belongs to.
-
-  HOSTGROUP_INFO event describes hostgroup/host as :service/:tags field
-  => { :service \"hostgroup2\",
-       :tags [\"owl-docker\", \"hosta\"]
-       :description \"HOSTGROUP_INFO\" }"
-  [e]
-       ; Use host as argument to construct the expression of query
+(defn hostgroup2hosts
+  "find out all the hosts belongs to certain hostgroup"
+  [hostgroup]
+       ; Use hostgroup as argument to construct the expression of query
        ; Use syntax quoting and unquote tilde
-  (->> `(and (= :description "HOSTGROUP_INFO")
-                     (:tagged ~(:host e)))
+  (->> `(and (= :service "HOSTGROUP_INFO")
+                     (:tagged ~hostgroup))
        ; Search the current Riemann core's index for any matching events
-       ; These events are HOSTGROUP_INFO events.
         (riemann.index/search (:index @core))
-       ; Filter the events to retrieve the hostgroup info.
-       ; hostgroup info stays in :service field of events.
-       ; Return the vector of hostgroup
-        (mapv (juxt :service :description))))
+        (map :host)))
+
+(defn event2hostgroup
+  "find out all the hostgroups that contains the host of current event.
+
+  HOSTGROUP_INFO event describes hostgroup/host as :tags/:host field
+  => { :service \"HOSTGROUP_INFO\",
+       :host \"owl-docker\"
+       :tags [\"hostgroup1\", \"hostgroup2\"]}"
+  [e]
+  (:tags (riemann.index/lookup (:index @core) (:host e) "HOSTGROUP_INFO")))

@@ -66,3 +66,30 @@
    ```
    ./query.sh
    ```
+
+### Use [riemann-tools](https://github.com/riemann/riemann-tools) to inject metrics 
+
+1. Use riemann-net to select only `eth0`, `eth1` interfaces.
+   ```
+   riemann-net -h 10.20.30.40 -p 5555 -n eth0 eth1
+   ```
+
+2. Set riemann.config to catch only `bytes`, `packets` fields
+```
+   (streams
+     (where* (fn [e]
+               (re-matches #".*(bytes|packets)" (:service e)))
+             prn))
+```
+
+3. Sample logs
+```
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx bytes", :state "ok", :description nil, :metric 96.0, :tags nil, :time 1497866517, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx packets", :state "ok", :description nil, :metric 1.6, :tags nil, :time 1497866517, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx bytes", :state "ok", :description nil, :metric 148.8, :tags nil, :time 1497866517, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx packets", :state "ok", :description nil, :metric 1.6, :tags nil, :time 1497866517, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth1 rx bytes", :state "ok", :description nil, :metric 0.0, :tags nil, :time 1497866517, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth1 rx packets", :state "ok", :description nil, :metric 0.0, :tags nil, :time 1497866517, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth1 tx bytes", :state "ok", :description nil, :metric 0.0, :tags nil, :time 1497866517, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth1 tx packets", :state "ok", :description nil, :metric 0.0, :tags nil, :time 1497866517, :ttl 10.0}
+```

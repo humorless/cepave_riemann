@@ -93,17 +93,41 @@
 #riemann.codec.Event{:host "owl-docker", :service "eth1 tx bytes", :state "ok", :description nil, :metric 0.0, :tags nil, :time 1497866517, :ttl 10.0}
 #riemann.codec.Event{:host "owl-docker", :service "eth1 tx packets", :state "ok", :description nil, :metric 0.0, :tags nil, :time 1497866517, :ttl 10.0}
 ```
-4. Alternative to riemann-tools: [Goshin!](https://github.com/ippontech/goshin)
+### Alternative to riemann-tools: [Goshin!](https://github.com/ippontech/goshin)
 
-Goshin mimics riemann-tools metrics gathering and for now covers the following riemann-tools metric :
+1. Goshin mimics riemann-tools metrics gathering and for now covers the following riemann-tools metric :
 
  *  riemann-health : cpu, memory and load
  *  riemann-net : network usage
  *  riemann-diskstats: disk statistics
 
-to debug Goshin:
+2. Debug Goshin:
 ```
 sudo tail -f /var/log/syslog
 ```
-
 Note that Goshin use udp port to inject metric into riemann
+
+3. Sample logs
+```
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx bytes", :state "ok", :description nil, :metric 275.53, :tags ["goshin"], :time 1.49794291635E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx packets", :state "ok", :description nil, :metric 3.2, :tags ["goshin"], :time 1.497942916352E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx errs", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916354E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx drop", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916358E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx frame", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.49794291636E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx compressed", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916363E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 rx multicast", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916365E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx bytes", :state "ok", :description nil, :metric 329.66, :tags ["goshin"], :time 1.49794291637E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx packets", :state "ok", :description nil, :metric 3.3, :tags ["goshin"], :time 1.49794291638E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx errs", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916388E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx drop", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.49794291639E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx fifo", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916398E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx colls", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916401E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx carrier", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916408E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "eth0 tx compressed", :state "ok", :description nil, :metric 0.0, :tags ["goshin"], :time 1.497942916414E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "load", :state "ok", :description "1-minute load average/core is 0.025000", :metric 0.03, :tags ["goshin"], :time 1.49794291642E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "disk /", :state "warning", :description "95% used", :metric 0.95, :tags ["goshin"], :time 1.497942916449E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "memory", :state "ok", :description "used\n\n 6.8  3658 java\n 6.1 23641 java\n 1.1   948 docker\n 0.8  1373 puppet\n 0.3  6612 falcon-agent\n 0.3  4520 docker\n 0.3  3636 exe\n 0.3  3628 exe\n 0.3  3609 exe\n 0.2  3620 exe\n", :metric 0.2, :tags ["goshin"], :time 1.497942916464E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "cpu", :state "ok", :description "user+nice+system\n\n18.0  4783 git-remote-http\n11.0  3658 java\n 0.6  3151 launcher\n 0.6 23641 java\n 0.5   948 docker\n 0.4  6612 falcon-agent\n 0.3  3644 docker-containe\n 0.3  3135 kworker/u4:2\n 0.2  4520 docker\n 0.1  3636 exe\n", :metric 0.05, :tags ["goshin"], :time 1.497942916482E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "cpuwait", :state "ok", :description "user+nice+system\n\n19.0  4783 git-remote-http\n11.0  3658 java\n 0.6  3151 launcher\n 0.6 23641 java\n 0.5   948 docker\n 0.4  6612 falcon-agent\n 0.3  3644 docker-containe\n 0.3  3135 kworker/u4:2\n 0.2  4520 docker\n 0.1  3636 exe\n", :metric 0.0, :tags ["goshin"], :time 1.497942916522E9, :ttl 10.0}
+#riemann.codec.Event{:host "owl-docker", :service "load", :state "ok", :description "1-minute load average/core is 0.020000", :metric 0.02, :tags ["goshin"], :time 1.497942926288E9, :ttl 10.0}
+```

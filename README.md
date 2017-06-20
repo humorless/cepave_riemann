@@ -67,11 +67,11 @@
    ./query.sh
    ```
 
-### Use [riemann-tools](https://github.com/riemann/riemann-tools) to inject metrics 
+### Use [riemann-tools](https://github.com/riemann/riemann-tools) to inject metrics
 
 1. Use riemann-net to select only `eth0`, `eth1` interfaces.
    ```
-   riemann-net -h 10.20.30.40 -p 5555 -n eth0 eth1
+   riemann-net -n eth0 eth1
    ```
 
 2. Set riemann.config to catch only `bytes`, `packets` fields

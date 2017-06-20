@@ -6,4 +6,4 @@ services:
     environment: []
     volumes:
       - "$PWD/riemann_config:/etc/riemann/"
-    ports: ['5555:5555','5556:5556', '5557:5557']
+    ports: ['5555:5555', '5555:5555/udp', '5556:5556', '5557:5557']

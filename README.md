@@ -94,8 +94,16 @@
 #riemann.codec.Event{:host "owl-docker", :service "eth1 tx packets", :state "ok", :description nil, :metric 0.0, :tags nil, :time 1497866517, :ttl 10.0}
 ```
 4. Alternative to riemann-tools: [Goshin!](https://github.com/ippontech/goshin)
-Goshin! tries to mimic riemann-tools metrics gathering and for now covers the following riemann-tools metric :
+
+Goshin mimics riemann-tools metrics gathering and for now covers the following riemann-tools metric :
 
  *  riemann-health : cpu, memory and load
  *  riemann-net : network usage
  *  riemann-diskstats: disk statistics
+
+to debug Goshin:
+```
+sudo tail -f /var/log/syslog
+```
+
+Note that Goshin use udp port to inject metric into riemann

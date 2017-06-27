@@ -9,8 +9,10 @@
 (def version "3.1.0")
 
 (def alerta-endpoints
-    {:alert "http://10.20.30.40:8081/api/alert"
-    :heartbeat "http://10.20.30.40:8081/api/heartbeat"})
+    {:alert "http://10.20.30.40:8181/api/alert"
+     :heartbeat "http://10.20.30.40:8081/api/heartbeat"
+     :apikey "nskKwHlzEIuTejKqcYKT7-IB_owdw7Dd8sGhXceA"})
+
 
 (defn post-to-alerta
   "POST to the Alerta REST API."
@@ -19,6 +21,8 @@
     event-json (json/generate-string request)]
     (client/post event-url
                {:body event-json
+                :headers {"Authorization" (str "Key " (get alerta-endpoints :apikey))}
+                :body-encoding "UTF-8"
                 :socket-timeout 5000
                 :conn-timeout 5000
                 :content-type :json
